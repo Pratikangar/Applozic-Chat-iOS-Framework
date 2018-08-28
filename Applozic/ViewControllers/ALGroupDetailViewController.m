@@ -605,6 +605,18 @@
                                                                                       }
                                                                                   }];
                                                             }]];
+                
+                //    -------------->>>>>>>>>>>> Navigate user to profile <<<<<<<<<<<--------------
+                
+                UIAlertAction *profileAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"View Profile"] style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                            
+                        NSLog(@"%@",memberIds[row]);
+                        NSMutableDictionary *tmp = [[NSMutableDictionary alloc] init];
+                        [tmp setValue:memberIds[row] forKey:@"member_id"];
+                                                                            
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"openUserProfile" object:nil userInfo:tmp];
+                }];
+                [theController addAction:profileAction];
         }
         
         

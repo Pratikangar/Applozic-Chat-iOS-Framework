@@ -4504,22 +4504,30 @@ style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 
 -(void)getUserInformation
 {
-    if(![ALApplozicSettings getReceiverUserProfileOption])
-    {
-        return;
-    }
-
-    [self.mActivityIndicator startAnimating];
-
-    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Applozic"
-                                                          bundle:[NSBundle bundleForClass:[self class]]];
-
-    ALReceiverUserProfileVC * receiverUserProfileVC =
-            (ALReceiverUserProfileVC *)[storyboard instantiateViewControllerWithIdentifier:@"ALReceiverUserProfile"];
-
-    receiverUserProfileVC.alContact = self.alContact;
-    [self.mActivityIndicator stopAnimating];
-    [self.navigationController pushViewController:receiverUserProfileVC animated:YES];
+//    if(![ALApplozicSettings getReceiverUserProfileOption])
+//    {
+//        return;
+//    }
+//
+//    [self.mActivityIndicator startAnimating];
+//
+//    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Applozic"
+//                                                          bundle:[NSBundle bundleForClass:[self class]]];
+//
+//    ALReceiverUserProfileVC * receiverUserProfileVC =
+//            (ALReceiverUserProfileVC *)[storyboard instantiateViewControllerWithIdentifier:@"ALReceiverUserProfile"];
+//
+//    receiverUserProfileVC.alContact = self.alContact;
+//    [self.mActivityIndicator stopAnimating];
+//    [self.navigationController pushViewController:receiverUserProfileVC animated:YES];
+    
+//    -------------->>>>>>>>>>>> Navigate user to profile <<<<<<<<<<<--------------
+    
+    NSLog(@"%@",self.contactIds);
+    NSMutableDictionary *tmp = [[NSMutableDictionary alloc] init];
+    [tmp setValue:self.contactIds forKey:@"member_id"];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"openUserProfile" object:nil userInfo:tmp];
 }
 
 //==============================================================================================================================================
