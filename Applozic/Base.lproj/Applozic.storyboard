@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nQk-LM-enC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nQk-LM-enC">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -132,6 +132,12 @@
                                                     <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jtj-CR-pwG">
+                                                    <rect key="frame" x="26" y="16" width="55" height="50"/>
+                                                    <connections>
+                                                        <action selector="onTapUserImageButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DcP-9c-JbV"/>
+                                                    </connections>
+                                                </button>
                                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="online_show" translatesAutoresizingMaskIntoConstraints="NO" id="n4n-9f-27k">
                                                     <rect key="frame" x="63" y="53" width="18" height="13"/>
                                                     <constraints>
@@ -142,8 +148,11 @@
                                             <constraints>
                                                 <constraint firstItem="FQ8-OW-duW" firstAttribute="top" secondItem="jVl-2p-Q74" secondAttribute="topMargin" constant="15" id="2SL-qA-uDe"/>
                                                 <constraint firstItem="ng6-Us-xRU" firstAttribute="top" secondItem="8um-DV-I1M" secondAttribute="top" id="2wH-Hk-opS"/>
+                                                <constraint firstItem="G4M-aZ-RgP" firstAttribute="leading" secondItem="Jtj-CR-pwG" secondAttribute="trailing" constant="18" id="2xn-fF-WC6"/>
                                                 <constraint firstItem="nFm-Yv-yQF" firstAttribute="firstBaseline" secondItem="8um-DV-I1M" secondAttribute="firstBaseline" constant="6" id="31e-9K-o3w"/>
+                                                <constraint firstItem="ng6-Us-xRU" firstAttribute="leading" secondItem="Jtj-CR-pwG" secondAttribute="trailing" constant="16" id="4VY-S3-hj9"/>
                                                 <constraint firstItem="n4n-9f-27k" firstAttribute="leading" secondItem="jVl-2p-Q74" secondAttribute="leadingMargin" constant="48" id="5Uq-bF-vBu"/>
+                                                <constraint firstAttribute="bottom" secondItem="Jtj-CR-pwG" secondAttribute="bottom" constant="15.5" id="5dm-pi-QlZ"/>
                                                 <constraint firstItem="G4M-aZ-RgP" firstAttribute="leading" secondItem="9sE-W8-i33" secondAttribute="trailing" constant="18" id="66n-PF-hJU"/>
                                                 <constraint firstItem="9sE-W8-i33" firstAttribute="centerX" secondItem="FQ8-OW-duW" secondAttribute="centerX" id="7uz-vN-RQu"/>
                                                 <constraint firstItem="9sE-W8-i33" firstAttribute="leading" secondItem="jVl-2p-Q74" secondAttribute="leadingMargin" constant="11" id="88c-bO-HIV"/>
@@ -152,6 +161,7 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="9sE-W8-i33" secondAttribute="bottom" constant="5" id="Dk6-JJ-ZN6"/>
                                                 <constraint firstItem="ng6-Us-xRU" firstAttribute="bottom" secondItem="nFm-Yv-yQF" secondAttribute="bottom" id="EIy-63-gPm"/>
                                                 <constraint firstItem="9sE-W8-i33" firstAttribute="centerY" secondItem="jVl-2p-Q74" secondAttribute="centerY" id="EOK-v8-JNu"/>
+                                                <constraint firstItem="Jtj-CR-pwG" firstAttribute="centerY" secondItem="jVl-2p-Q74" secondAttribute="centerY" id="Enw-yS-57C"/>
                                                 <constraint firstItem="G4M-aZ-RgP" firstAttribute="bottom" secondItem="r8N-HC-XMt" secondAttribute="bottom" id="Eqg-Bn-z8j"/>
                                                 <constraint firstItem="nFm-Yv-yQF" firstAttribute="baseline" secondItem="8um-DV-I1M" secondAttribute="baseline" constant="3" id="JXL-2W-foa"/>
                                                 <constraint firstItem="9sE-W8-i33" firstAttribute="top" secondItem="jVl-2p-Q74" secondAttribute="topMargin" constant="5" id="Jf5-Sl-doh"/>
@@ -170,9 +180,11 @@
                                                 <constraint firstItem="mUK-kK-XjJ" firstAttribute="baseline" secondItem="nFm-Yv-yQF" secondAttribute="baseline" id="g5f-6G-VRK"/>
                                                 <constraint firstItem="r8N-HC-XMt" firstAttribute="leading" secondItem="G4M-aZ-RgP" secondAttribute="trailing" constant="6" id="h9a-oe-DGe"/>
                                                 <constraint firstItem="mUK-kK-XjJ" firstAttribute="firstBaseline" secondItem="nFm-Yv-yQF" secondAttribute="firstBaseline" id="iKC-F6-TdA"/>
+                                                <constraint firstItem="Jtj-CR-pwG" firstAttribute="top" secondItem="jVl-2p-Q74" secondAttribute="top" constant="16" id="loE-Kv-WFm"/>
                                                 <constraint firstItem="G4M-aZ-RgP" firstAttribute="top" secondItem="jVl-2p-Q74" secondAttribute="topMargin" constant="7" id="pGZ-Bu-GYL"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nFm-Yv-yQF" secondAttribute="trailing" constant="20" symbolic="YES" id="qRk-r7-r28"/>
                                                 <constraint firstItem="nFm-Yv-yQF" firstAttribute="leading" secondItem="ng6-Us-xRU" secondAttribute="trailing" constant="5" id="qrq-Y2-Rfj"/>
+                                                <constraint firstItem="Jtj-CR-pwG" firstAttribute="leading" secondItem="jVl-2p-Q74" secondAttribute="leading" constant="26" id="s4X-iF-5k3"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="mUK-kK-XjJ" secondAttribute="bottom" constant="14" id="uAd-Uh-O03"/>
                                                 <constraint firstItem="ng6-Us-xRU" firstAttribute="top" secondItem="G4M-aZ-RgP" secondAttribute="bottom" constant="2" id="upf-G4-QXF"/>
                                             </constraints>
@@ -191,6 +203,7 @@
                                             <outlet property="imageNameLabel" destination="nFm-Yv-yQF" id="iDb-5E-j1g"/>
                                             <outlet property="mMessageLabel" destination="mUK-kK-XjJ" id="Qjk-1k-vcd"/>
                                             <outlet property="mTimeLabel" destination="r8N-HC-XMt" id="g1W-I7-CN0"/>
+                                            <outlet property="mUserImageButton" destination="Jtj-CR-pwG" id="aL0-Hn-5S6"/>
                                             <outlet property="mUserImageView" destination="9sE-W8-i33" id="nJd-di-Nbe"/>
                                             <outlet property="mUserNameLabel" destination="G4M-aZ-RgP" id="sPF-zg-Tho"/>
                                             <outlet property="onlineImageMarker" destination="n4n-9f-27k" id="e9w-gU-3E9"/>

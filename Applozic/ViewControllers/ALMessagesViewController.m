@@ -644,6 +644,8 @@
             
             contactCell.unreadCountLabel.backgroundColor = [ALApplozicSettings getUnreadCountLabelBGColor];
             
+            contactCell.mUserImageButton.tag = indexPath.row;
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                  
                  contactCell.unreadCountLabel.layer.cornerRadius = contactCell.unreadCountLabel.frame.size.width/2;
@@ -700,6 +702,28 @@
     }
     
     return contactCell;
+}
+
+- (IBAction)onTapUserImageButton:(UIButton *)sender {
+    
+    NSLog(@"Tap on imageview : %ld",(long)sender.tag);
+    
+    ALMessage *message = (ALMessage *)self.mContactsMessageListArray[sender.tag];
+    
+    NSLog(@"%@",message.to);
+    NSLog(@"%@",message.imageFilePath);
+    
+    if([message.groupId intValue]) {
+        NSLog(@"Tap on Group");
+    }
+    else {
+        NSLog(@"Tap on User");
+        
+        NSMutableDictionary *tmp = [[NSMutableDictionary alloc] init];
+        [tmp setValue:message.to forKey:@"user_id"];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"openUserProfile" object:nil userInfo:tmp];
+    }
 }
 
 

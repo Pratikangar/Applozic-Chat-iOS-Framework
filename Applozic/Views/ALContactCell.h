@@ -11,6 +11,8 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView * mUserImageView;
 
+@property (weak, nonatomic) IBOutlet UIButton *mUserImageButton;
+
 @property (weak, nonatomic) IBOutlet UILabel *mUserNameLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *mMessageLabel;
