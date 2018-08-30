@@ -217,7 +217,7 @@
     [[NSNotificationCenter defaultCenter]
      addObserver:self selector:@selector(newMessageHandler:) name:NEW_MESSAGE_NOTIFICATION  object:nil];
 
-    [self.tabBarController.tabBar setHidden: YES];
+    [self.tabBarController.tabBar setHidden: NO];
 
     if([ALApplozicSettings isTemplateMessageEnabled]) {
         [self setUpTeamplateView];
