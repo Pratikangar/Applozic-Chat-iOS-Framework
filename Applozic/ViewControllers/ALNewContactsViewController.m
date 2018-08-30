@@ -1046,6 +1046,8 @@
     [self.contactsTableView reloadData];
 }
 
+#pragma mark - Create group cutomized method
+
 #pragma mark - Create group method
 //================================
 -(void)createNewGroup:(id)sender
@@ -1060,17 +1062,13 @@
     //check whether at least two memebers selected
     if(self.groupMembers.count < 2 && !isForBroadCast)
     {
-        
         [self turnUserInteractivityForNavigationAndTableView:YES];
-        UIAlertController *alertController = [UIAlertController
-                                              alertControllerWithTitle:NSLocalizedStringWithDefaultValue(@"groupMembersTitle", [ALApplozicSettings getLocalizableName], [NSBundle mainBundle], @"Group Members" , @"")
-                                              message:NSLocalizedStringWithDefaultValue(@"selectMembersText", [ALApplozicSettings getLocalizableName], [NSBundle mainBundle], @"Please select minimum two members" , @"")
-                                              preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedStringWithDefaultValue(@"groupMembersTitle", [ALApplozicSettings getLocalizableName], [NSBundle mainBundle], @"Group Members" , @"")
+        message:NSLocalizedStringWithDefaultValue(@"selectMembersText", [ALApplozicSettings getLocalizableName], [NSBundle mainBundle], @"Please select minimum two members" , @"") preferredStyle:UIAlertControllerStyleAlert];
         
         [ALUtilityClass setAlertControllerFrame:alertController andViewController:self];
         
-        UIAlertAction *okAction = [UIAlertAction
-                                   actionWithTitle:NSLocalizedStringWithDefaultValue(@"okText", [ALApplozicSettings getLocalizableName], [NSBundle mainBundle], @"OK", @"")
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedStringWithDefaultValue(@"okText", [ALApplozicSettings getLocalizableName], [NSBundle mainBundle], @"OK", @"")
                                    style:UIAlertActionStyleDefault
                                    handler:^(UIAlertAction *action)
                                    {
@@ -1087,123 +1085,245 @@
     NSMutableArray * memberList = [NSMutableArray arrayWithArray:self.groupMembers.allObjects];
     if([ALApplozicSettings getSubGroupLaunchFlag])
     {
-        [self.creatingChannel createChannel:self.groupName andParentChannelKey:self.parentChannel.key orClientChannelKey:nil
-                             andMembersList:memberList andImageLink:self.groupImageURL channelType:PUBLIC
-                                andMetaData:nil withCompletion:^(ALChannel *alChannel, NSError *error) {
-                                    
-                                    if(alChannel)
-                                    {
-                                        //Updating view, popping to MessageList View
-                                        NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
-                                        
-                                        for (UIViewController *aViewController in allViewControllers)
-                                        {
-                                            if ([aViewController isKindOfClass:[ALMessagesViewController class]])
-                                            {
-                                                ALMessagesViewController * messageVC = (ALMessagesViewController *)aViewController;
-                                                [messageVC insertChannelMessage:alChannel.key];
-                                                [self.navigationController popToViewController:aViewController animated:YES];
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        
-                                        [TSMessage showNotificationWithTitle: NSLocalizedStringWithDefaultValue(@"unableToCreateGroupText", [ALApplozicSettings getLocalizableName], [NSBundle mainBundle], @"Unable to create group. Please try again", @"") type:TSMessageNotificationTypeError];
-                                        [self turnUserInteractivityForNavigationAndTableView:YES];
-                                    }
-                                    
-                                    [[self activityIndicator] stopAnimating];
-                                }];
+        [self.creatingChannel createChannel:self.groupName andParentChannelKey:self.parentChannel.key orClientChannelKey:nil andMembersList:memberList andImageLink:self.groupImageURL channelType:PUBLIC andMetaData:nil withCompletion:^(ALChannel *alChannel, NSError *error) {
+            
+            if(alChannel) {
+                //Updating view, popping to MessageList View
+                NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+                
+                for (UIViewController *aViewController in allViewControllers) {
+                    if ([aViewController isKindOfClass:[ALMessagesViewController class]]) {
+                        ALMessagesViewController * messageVC = (ALMessagesViewController *)aViewController;
+                        [messageVC insertChannelMessage:alChannel.key];
+                        [self.navigationController popToViewController:aViewController animated:YES];
+                    }
+                }
+            }
+            else {
+                [TSMessage showNotificationWithTitle: NSLocalizedStringWithDefaultValue(@"unableToCreateGroupText", [ALApplozicSettings getLocalizableName], [NSBundle mainBundle], @"Unable to create group. Please try again", @"") type:TSMessageNotificationTypeError];
+                [self turnUserInteractivityForNavigationAndTableView:YES];
+            }
+            [[self activityIndicator] stopAnimating];
+        }];
     }
+    
     else if (isForBroadCast)
     {
-        [self.creatingChannel createBroadcastChannelWithMembersList:memberList
-                                                        andMetaData:nil
-                                                     withCompletion:^(ALChannel *alChannel, NSError *error) {
-                                                         if(alChannel)
-                                                         {
-                                                             NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
-                                                             
-                                                             for (UIViewController *aViewController in allViewControllers)
-                                                             {
-                                                                 if([aViewController isKindOfClass:NSClassFromString([ALApplozicSettings getMsgContainerVC])])
-                                                                 {
-                                                                     
-                                                                     [self.navigationController popToViewController:aViewController animated:YES];
-                                                                     
-                                                                 } else if ([ALPushAssist isViewObjIsMsgVC:aViewController])
-                                                                 {
-                                                                     ALMessagesViewController * messageVC = (ALMessagesViewController *)aViewController;
-                                                                     [messageVC insertChannelMessage:alChannel.key];
-                                                                     [self.navigationController popToViewController:aViewController animated:YES];
-                                                                 }
-                                                                 else if ([ALPushAssist isViewObjIsMsgContainerVC:aViewController])
-                                                                 {
-                                                                     ALSubViewController * msgSubView = aViewController;
-                                                                     [msgSubView.msgView insertChannelMessage:alChannel.key];
-                                                                     [self.navigationController popToViewController:aViewController animated:YES];
-                                                                 }
-                                                             }
-                                                         }
-                                                         else
-                                                         {
-                                                             [TSMessage showNotificationWithTitle: NSLocalizedStringWithDefaultValue(@"unableToCreateGroupText", [ALApplozicSettings getLocalizableName], [NSBundle mainBundle], @"Unable to create group. Please try again", @"")  type:TSMessageNotificationTypeError];
-                                                             [self turnUserInteractivityForNavigationAndTableView:YES];
-                                                         }
-                                                         
-                                                         [[self activityIndicator] stopAnimating];
-                                                     }];
+        [self.creatingChannel createBroadcastChannelWithMembersList:memberList andMetaData:nil withCompletion:^(ALChannel *alChannel, NSError *error) {
+            if(alChannel) {
+                NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+                
+                for (UIViewController *aViewController in allViewControllers) {
+                    if ([ALPushAssist isViewObjIsMsgVC:aViewController]) {
+                        //                      ALMessagesViewController * messageVC = (ALMessagesViewController *)aViewController;
+                        //                      [messageVC insertChannelMessage:alChannel.key];
+                        [self.navigationController popToViewController:aViewController animated:YES];
+                    }
+                    else if ([ALPushAssist isViewObjIsMsgContainerVC:aViewController]) {
+                        ALSubViewController * msgSubView = aViewController;
+                        [msgSubView.msgView insertChannelMessage:alChannel.key];
+                        [self.navigationController popToViewController:aViewController animated:YES];
+                    }
+                }
+            }
+            else {
+                [TSMessage showNotificationWithTitle: NSLocalizedStringWithDefaultValue(@"unableToCreateGroupText", nil, [NSBundle mainBundle], @"Unable to create group. Please try again", @"")  type:TSMessageNotificationTypeError];
+                [self turnUserInteractivityForNavigationAndTableView:YES];
+            }
+            [[self activityIndicator] stopAnimating];
+        }];
     }
-    else
-    {
+    
+    else {
         NSInteger channelType = PUBLIC;
         if([ALApplozicSettings getDefaultGroupType]) {
             channelType = [ALApplozicSettings getDefaultGroupType];
         }
-        [self.creatingChannel createChannel:self.groupName orClientChannelKey:nil andMembersList:memberList andImageLink:self.groupImageURL channelType:channelType
-                andMetaData:nil withCompletion:^(ALChannel *alChannel, NSError *error) {
-                                 if(alChannel)
-                                 {
-                                     //Updating view, popping to MessageList View
-                                     NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
-                                     
-                                     for (UIViewController *aViewController in allViewControllers)
-                                     {
-                                         if([aViewController isKindOfClass:NSClassFromString([ALApplozicSettings getMsgContainerVC])])
-                                         {
-                                             
-                                             [self.navigationController popToViewController:aViewController animated:YES];
-                                             
-                                         } else if ([ALPushAssist isViewObjIsMsgVC:aViewController])
-                                         {
-                                             ALMessagesViewController * messageVC = (ALMessagesViewController *)aViewController;
-                                             [messageVC insertChannelMessage:alChannel.key];
-                                             [self.navigationController popToViewController:aViewController animated:YES];
-                                         }
-                                         else if ([ALPushAssist isViewObjIsMsgContainerVC:aViewController])
-                                         {
-                                             ALSubViewController * msgSubView = aViewController;
-                                             [msgSubView.msgView insertChannelMessage:alChannel.key];
-                                             [self.navigationController popToViewController:aViewController animated:YES];
-                                         }
-                                     }
-                                 }
-                                 else
-                                 {
-                                     [TSMessage showNotificationWithTitle: NSLocalizedStringWithDefaultValue(@"unableToCreateGroupText", [ALApplozicSettings getLocalizableName], [NSBundle mainBundle], @"Unable to create group. Please try again", @"") type:TSMessageNotificationTypeError];
-                                     [self turnUserInteractivityForNavigationAndTableView:YES];
-                                 }
-                                 
-                                 [[self activityIndicator] stopAnimating];
-                                 
-                             }];
+        [self.creatingChannel createChannel:self.groupName orClientChannelKey:nil andMembersList:memberList andImageLink:self.groupImageURL channelType:channelType andMetaData:nil withCompletion:^(ALChannel *alChannel, NSError *error) {
+            if(alChannel) {
+                //Updating view, popping to MessageList View
+                NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+                for (UIViewController *aViewController in allViewControllers) {
+                    if ([ALPushAssist isViewObjIsMsgVC:aViewController] ||            ([aViewController isKindOfClass:NSClassFromString(@"ChatViewController")])) {                                            // ALMessagesViewController * messageVC = (ALMessagesViewController *)aViewController;                                            // [messageVC insertChannelMessage:alChannel.key];
+                        [self.navigationController popToViewController:aViewController animated:YES];
+                    }
+                    else if ([ALPushAssist isViewObjIsMsgContainerVC:aViewController]) {
+                        ALSubViewController * msgSubView = aViewController;
+                        [msgSubView.msgView insertChannelMessage:alChannel.key];
+                        [self.navigationController popToViewController:aViewController animated:YES];
+                    }
+                }
+            }
+            else {
+                [TSMessage showNotificationWithTitle: NSLocalizedStringWithDefaultValue(@"unableToCreateGroupText", nil, [NSBundle mainBundle], @"Unable to create group. Please try again", @"") type:TSMessageNotificationTypeError];
+                [self turnUserInteractivityForNavigationAndTableView:YES];
+            }
+            [[self activityIndicator] stopAnimating];
+        }];
     }
     if(![ALDataNetworkConnection checkDataNetworkAvailable])
     {
         [self turnUserInteractivityForNavigationAndTableView:YES];
     }
 }
+
+//================================
+//-(void)createNewGroup:(id)sender
+//{
+//    if(![self checkInternetConnectivity:nil andIndexPath:nil]) {
+//        return;
+//    }
+//
+//    BOOL isForBroadCast = [self.forGroup isEqualToNumber:[NSNumber numberWithInt:BROADCAST_GROUP_CREATION]];
+//
+//    [self turnUserInteractivityForNavigationAndTableView:NO];
+//    //check whether at least two memebers selected
+//    if(self.groupMembers.count < 2 && !isForBroadCast)
+//    {
+//
+//        [self turnUserInteractivityForNavigationAndTableView:YES];
+//        UIAlertController *alertController = [UIAlertController
+//                                              alertControllerWithTitle:NSLocalizedStringWithDefaultValue(@"groupMembersTitle", [ALApplozicSettings getLocalizableName], [NSBundle mainBundle], @"Group Members" , @"")
+//                                              message:NSLocalizedStringWithDefaultValue(@"selectMembersText", [ALApplozicSettings getLocalizableName], [NSBundle mainBundle], @"Please select minimum two members" , @"")
+//                                              preferredStyle:UIAlertControllerStyleAlert];
+//
+//        [ALUtilityClass setAlertControllerFrame:alertController andViewController:self];
+//
+//        UIAlertAction *okAction = [UIAlertAction
+//                                   actionWithTitle:NSLocalizedStringWithDefaultValue(@"okText", [ALApplozicSettings getLocalizableName], [NSBundle mainBundle], @"OK", @"")
+//                                   style:UIAlertActionStyleDefault
+//                                   handler:^(UIAlertAction *action)
+//                                   {
+//                                       ALSLog(ALLoggerSeverityInfo, @"OK action");
+//                                   }];
+//        [alertController addAction:okAction];
+//        [self presentViewController:alertController animated:YES completion:nil];
+//        return;
+//
+//    }
+//
+//    //Server Call
+//    self.creatingChannel = [[ALChannelService alloc] init];
+//    NSMutableArray * memberList = [NSMutableArray arrayWithArray:self.groupMembers.allObjects];
+//    if([ALApplozicSettings getSubGroupLaunchFlag])
+//    {
+//        [self.creatingChannel createChannel:self.groupName andParentChannelKey:self.parentChannel.key orClientChannelKey:nil
+//                             andMembersList:memberList andImageLink:self.groupImageURL channelType:PUBLIC
+//                                andMetaData:nil withCompletion:^(ALChannel *alChannel, NSError *error) {
+//
+//                                    if(alChannel)
+//                                    {
+//                                        //Updating view, popping to MessageList View
+//                                        NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+//
+//                                        for (UIViewController *aViewController in allViewControllers)
+//                                        {
+//                                            if ([aViewController isKindOfClass:[ALMessagesViewController class]])
+//                                            {
+//                                                ALMessagesViewController * messageVC = (ALMessagesViewController *)aViewController;
+//                                                [messageVC insertChannelMessage:alChannel.key];
+//                                                [self.navigationController popToViewController:aViewController animated:YES];
+//                                            }
+//                                        }
+//                                    }
+//                                    else
+//                                    {
+//
+//                                        [TSMessage showNotificationWithTitle: NSLocalizedStringWithDefaultValue(@"unableToCreateGroupText", [ALApplozicSettings getLocalizableName], [NSBundle mainBundle], @"Unable to create group. Please try again", @"") type:TSMessageNotificationTypeError];
+//                                        [self turnUserInteractivityForNavigationAndTableView:YES];
+//                                    }
+//
+//                                    [[self activityIndicator] stopAnimating];
+//                                }];
+//    }
+//    else if (isForBroadCast)
+//    {
+//        [self.creatingChannel createBroadcastChannelWithMembersList:memberList
+//                                                        andMetaData:nil
+//                                                     withCompletion:^(ALChannel *alChannel, NSError *error) {
+//                                                         if(alChannel)
+//                                                         {
+//                                                             NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+//
+//                                                             for (UIViewController *aViewController in allViewControllers)
+//                                                             {
+//                                                                 if([aViewController isKindOfClass:NSClassFromString([ALApplozicSettings getMsgContainerVC])])
+//                                                                 {
+//
+//                                                                     [self.navigationController popToViewController:aViewController animated:YES];
+//
+//                                                                 } else if ([ALPushAssist isViewObjIsMsgVC:aViewController])
+//                                                                 {
+//                                                                     ALMessagesViewController * messageVC = (ALMessagesViewController *)aViewController;
+//                                                                     [messageVC insertChannelMessage:alChannel.key];
+//                                                                     [self.navigationController popToViewController:aViewController animated:YES];
+//                                                                 }
+//                                                                 else if ([ALPushAssist isViewObjIsMsgContainerVC:aViewController])
+//                                                                 {
+//                                                                     ALSubViewController * msgSubView = aViewController;
+//                                                                     [msgSubView.msgView insertChannelMessage:alChannel.key];
+//                                                                     [self.navigationController popToViewController:aViewController animated:YES];
+//                                                                 }
+//                                                             }
+//                                                         }
+//                                                         else
+//                                                         {
+//                                                             [TSMessage showNotificationWithTitle: NSLocalizedStringWithDefaultValue(@"unableToCreateGroupText", [ALApplozicSettings getLocalizableName], [NSBundle mainBundle], @"Unable to create group. Please try again", @"")  type:TSMessageNotificationTypeError];
+//                                                             [self turnUserInteractivityForNavigationAndTableView:YES];
+//                                                         }
+//
+//                                                         [[self activityIndicator] stopAnimating];
+//                                                     }];
+//    }
+//    else
+//    {
+//        NSInteger channelType = PUBLIC;
+//        if([ALApplozicSettings getDefaultGroupType]) {
+//            channelType = [ALApplozicSettings getDefaultGroupType];
+//        }
+//        [self.creatingChannel createChannel:self.groupName orClientChannelKey:nil andMembersList:memberList andImageLink:self.groupImageURL channelType:channelType
+//                andMetaData:nil withCompletion:^(ALChannel *alChannel, NSError *error) {
+//                                 if(alChannel)
+//                                 {
+//                                     //Updating view, popping to MessageList View
+//                                     NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+//
+//                                     for (UIViewController *aViewController in allViewControllers)
+//                                     {
+//                                         if([aViewController isKindOfClass:NSClassFromString([ALApplozicSettings getMsgContainerVC])])
+//                                         {
+//
+//                                             [self.navigationController popToViewController:aViewController animated:YES];
+//
+//                                         } else if ([ALPushAssist isViewObjIsMsgVC:aViewController])
+//                                         {
+//                                             ALMessagesViewController * messageVC = (ALMessagesViewController *)aViewController;
+//                                             [messageVC insertChannelMessage:alChannel.key];
+//                                             [self.navigationController popToViewController:aViewController animated:YES];
+//                                         }
+//                                         else if ([ALPushAssist isViewObjIsMsgContainerVC:aViewController])
+//                                         {
+//                                             ALSubViewController * msgSubView = aViewController;
+//                                             [msgSubView.msgView insertChannelMessage:alChannel.key];
+//                                             [self.navigationController popToViewController:aViewController animated:YES];
+//                                         }
+//                                     }
+//                                 }
+//                                 else
+//                                 {
+//                                     [TSMessage showNotificationWithTitle: NSLocalizedStringWithDefaultValue(@"unableToCreateGroupText", [ALApplozicSettings getLocalizableName], [NSBundle mainBundle], @"Unable to create group. Please try again", @"") type:TSMessageNotificationTypeError];
+//                                     [self turnUserInteractivityForNavigationAndTableView:YES];
+//                                 }
+//
+//                                 [[self activityIndicator] stopAnimating];
+//
+//                             }];
+//    }
+//    if(![ALDataNetworkConnection checkDataNetworkAvailable])
+//    {
+//        [self turnUserInteractivityForNavigationAndTableView:YES];
+//    }
+//}
 
 
 -(void)turnUserInteractivityForNavigationAndTableView:(BOOL)option
