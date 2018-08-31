@@ -684,6 +684,8 @@
     
     NSArray * theArray = [theDbHandler.managedObjectContext executeFetchRequest:theRequest error:nil];
     
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    
     for (DB_CONTACT *dbContact in theArray)
     {
         
@@ -698,20 +700,101 @@
         contact.localImageResourceName = dbContact.localImageResourceName;
         contact.contactType = dbContact.contactType;
         
-        
         [self.contactList addObject:contact];
+        
+        
+        //      ----------->>> Custom Code <<<-----------
+        
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        
+        if (dbContact.userId) {
+            [dict setObject:dbContact.userId forKey:@"userId"];
+        } if (dbContact.fullName) {
+            [dict setObject:dbContact.fullName forKey:@"fullName"];
+        } if (dbContact.displayName) {
+            [dict setObject:dbContact.displayName forKey:@"displayName"];
+        } if (dbContact.contactImageUrl) {
+            [dict setObject:dbContact.contactImageUrl forKey:@"imageUrl"];
+        } if (dbContact.email) {
+            [dict setObject:dbContact.email forKey:@"email"];
+        }
+        
+        [array addObject:dict];
     }
+    
+    NSLog(@"%@",array);
+    
+    //      ----------->>> Custom Code <<<-----------
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSArray *arrFriends = [userDefaults objectForKey:@"friendListArray"];
+    NSLog(@"%@",arrFriends);
+    
+    NSMutableArray *arr = [self filterArrayAccordingToMyFriends:arrFriends applozicUser:array];
     
     NSSortDescriptor *valueDescriptor = [[NSSortDescriptor alloc] initWithKey:@"displayName" ascending:YES selector:@selector(caseInsensitiveCompare:)];
     NSArray * descriptors = [NSArray arrayWithObject:valueDescriptor];
-    self.filteredContactList = [NSMutableArray arrayWithArray:[self.contactList sortedArrayUsingDescriptors:descriptors]];
+    
+    self.filteredContactList = [NSMutableArray arrayWithArray:[arr sortedArrayUsingDescriptors:descriptors]];
     [self.contactList removeAllObjects];
     self.contactList = [NSMutableArray arrayWithArray:self.filteredContactList];
     
     [[self activityIndicator] stopAnimating];
     [self.contactsTableView reloadData];
     
+    
+    //    NSSortDescriptor *valueDescriptor = [[NSSortDescriptor alloc] initWithKey:@"displayName" ascending:YES selector:@selector(caseInsensitiveCompare:)];
+    //    NSArray * descriptors = [NSArray arrayWithObject:valueDescriptor];
+    //    self.filteredContactList = [NSMutableArray arrayWithArray:[self.contactList sortedArrayUsingDescriptors:descriptors]];
+    //    [self.contactList removeAllObjects];
+    //    self.contactList = [NSMutableArray arrayWithArray:self.filteredContactList];
+    //
+    //    [[self activityIndicator] stopAnimating];
+    //    [self.contactsTableView reloadData];
+    
 }
+
+//----------->>> Custom Method <<<-----------
+
+-(NSMutableArray *)filterArrayAccordingToMyFriends:(NSArray *)myFriendsArr applozicUser:(NSMutableArray *)applozicUserArr {
+    
+    NSMutableArray *finalArray = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < applozicUserArr.count; i++) {
+        
+        NSMutableDictionary *applozicUserDict = [[NSMutableDictionary alloc] initWithDictionary:[applozicUserArr objectAtIndex:i]];
+        NSLog(@"applozicUserDict : %@",applozicUserDict);
+        
+        for (int j = 0; j < myFriendsArr.count; j++) {
+            
+            NSMutableDictionary *myFriendsDict = [[NSMutableDictionary alloc] initWithDictionary:[myFriendsArr objectAtIndex:j]];
+            NSLog(@"myFriendsDict : %@",myFriendsDict);
+            
+            if ([[myFriendsDict valueForKey:@"userName"] isEqualToString:[applozicUserDict valueForKey:@"displayName"]]) {
+                
+                if ([[myFriendsDict valueForKey:@"friendId"] isEqualToString:[applozicUserDict valueForKey:@"userId"]]) {
+                    
+                    [finalArray addObject:applozicUserDict];
+                }
+            }
+        }
+    }
+    
+    for (int i = 0; i < finalArray.count; i++) {
+        ALContact *contact = [[ALContact alloc] init];
+        
+        contact.userId = [[finalArray objectAtIndex:i] valueForKey:@"userId"];
+        contact.displayName = [[finalArray objectAtIndex:i] valueForKey:@"displayName"];
+        contact.contactImageUrl = [[finalArray objectAtIndex:i] valueForKey:@"imageUrl"];
+        
+        [finalArray replaceObjectAtIndex:i withObject:contact];
+    }
+    
+    NSLog(@"%@",finalArray);
+    
+    return finalArray;
+}
+
 
 #pragma mark orientation method
 //=============================
@@ -1047,8 +1130,6 @@
 }
 
 #pragma mark - Create group cutomized method
-
-#pragma mark - Create group method
 //================================
 -(void)createNewGroup:(id)sender
 {
