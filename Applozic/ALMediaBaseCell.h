@@ -58,6 +58,7 @@
 @property (retain, nonatomic) UILabel *mDateLabel;
 @property (nonatomic, retain) UIImageView * mBubleImageView;
 @property (nonatomic, retain) UIImageView * mUserProfileImageView;
+@property (nonatomic,retain) UIButton * mUserProfileImageViewButton;
 @property (retain, nonatomic) UILabel *mNameLabel;
 @property (nonatomic, retain) ALMessage * mMessage;
 @property (nonatomic, retain) UIImageView *mMessageStatusImageView;
