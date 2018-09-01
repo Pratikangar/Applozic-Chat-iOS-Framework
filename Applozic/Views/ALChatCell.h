@@ -43,6 +43,8 @@
 
 @property (nonatomic,retain) UIImageView * mUserProfileImageView;
 
+@property (nonatomic,retain) UIButton * mUserProfileImageViewButton;
+
 @property (nonatomic, retain) ALMessage * mMessage;
 
 @property (nonatomic, retain) UIImageView *mMessageStatusImageView;

@@ -80,7 +80,14 @@
         self.mBubleImageView.layer.cornerRadius = 5;
         [self.contentView addSubview:self.mBubleImageView];
         
-        
+        self.mUserProfileImageViewButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 5, 45, 45)];
+        self.mUserProfileImageViewButton.contentMode = UIViewContentModeScaleAspectFill;
+        [self.mUserProfileImageViewButton addTarget:self action:@selector(TappedOnUserImageView:) forControlEvents:UIControlEventTouchUpInside];
+    self.mUserProfileImageViewButton.layer.cornerRadius=self.mUserProfileImageViewButton.frame.size.width/2;
+        self.mUserProfileImageViewButton.clipsToBounds = YES;
+        [self.contentView addSubview:self.mUserProfileImageViewButton];
+        [self.contentView bringSubviewToFront:self.mUserProfileImageViewButton];
+
         self.replyParentView = [[UIImageView alloc] init];
         self.replyParentView.contentMode = UIViewContentModeScaleToFill;
         self.replyParentView.backgroundColor = [UIColor whiteColor];
@@ -165,6 +172,20 @@
     [self.contentView addGestureRecognizer:menuTapGesture];
     return self;
     
+}
+
+- (void)TappedOnUserImageView:(UIButton *)sender {
+    
+    ALMessage *message = self.mMessage;
+    
+    NSLog(@"%@",message.to);
+    
+    NSLog(@"Tap on User");
+    
+    NSMutableDictionary *tmp = [[NSMutableDictionary alloc] init];
+    [tmp setValue:message.to forKey:@"user_id"];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"openUserProfile" object:nil userInfo:tmp];
 }
 
 

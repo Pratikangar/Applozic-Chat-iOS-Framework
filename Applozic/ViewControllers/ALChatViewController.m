@@ -1614,6 +1614,7 @@
     {
         ALLocationCell *theCell = (ALLocationCell *)[tableView dequeueReusableCellWithIdentifier:@"LocationCell"];
         theCell.tag = indexPath.row;
+        theCell.mUserProfileImageViewButton.tag = indexPath.row;
         theCell.delegate = self;
         [theCell populateCell:theMessage viewSize:self.view.frame.size];
         [self.view layoutIfNeeded];
@@ -1623,6 +1624,7 @@
     {
         ALImageCell *theCell = (ALImageCell *)[tableView dequeueReusableCellWithIdentifier:@"ImageCell"];
         theCell.tag = indexPath.row;
+        theCell.mUserProfileImageViewButton.tag = indexPath.row;
         theCell.delegate = self;
         [theCell populateCell:theMessage viewSize:self.view.frame.size];
         [self.view layoutIfNeeded];
@@ -1632,6 +1634,7 @@
     {
         ALVideoCell *theCell = (ALVideoCell *)[tableView dequeueReusableCellWithIdentifier:@"VideoCell"];
         theCell.tag = indexPath.row;
+        theCell.mUserProfileImageViewButton.tag = indexPath.row;
         theCell.delegate = self;
         [theCell populateCell:theMessage viewSize:self.view.frame.size];
         [self.view layoutIfNeeded];
@@ -1641,6 +1644,7 @@
     {
         ALAudioCell *theCell = (ALAudioCell *)[tableView dequeueReusableCellWithIdentifier:@"AudioCell"];
         theCell.tag = indexPath.row;
+        theCell.mUserProfileImageViewButton.tag = indexPath.row;
         theCell.delegate = self;
         [theCell populateCell:theMessage viewSize:self.view.frame.size];
         [self.view layoutIfNeeded];
@@ -1680,6 +1684,7 @@
     {
         ALChatCell *theCell = (ALChatCell *)[tableView dequeueReusableCellWithIdentifier:@"ChatCell"];
         theCell.tag = indexPath.row;
+        theCell.mUserProfileImageViewButton.tag = indexPath.row;
         theCell.delegate = self;
         [theCell populateCell:theMessage viewSize:self.view.frame.size];
         [self.view layoutIfNeeded];
@@ -1690,6 +1695,7 @@
     {
         ALContactMessageCell *theCell = (ALContactMessageCell *)[tableView dequeueReusableCellWithIdentifier:@"ContactMessageCell"];
         theCell.tag = indexPath.row;
+        theCell.mUserProfileImageViewButton.tag = indexPath.row;
         theCell.delegate = self;
         [theCell populateCell:theMessage viewSize:self.view.frame.size];
         [self.view layoutIfNeeded];
@@ -1699,6 +1705,7 @@
     {
         ALDocumentsCell *theCell = (ALDocumentsCell *)[tableView dequeueReusableCellWithIdentifier:@"DocumentsCell"];
         theCell.tag = indexPath.row;
+        theCell.mUserProfileImageViewButton.tag = indexPath.row;
         theCell.delegate = self;
         [theCell populateCell:theMessage viewSize:self.view.frame.size];
         [self.view layoutIfNeeded];

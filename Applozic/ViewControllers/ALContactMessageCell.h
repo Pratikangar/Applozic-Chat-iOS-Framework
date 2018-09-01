@@ -17,6 +17,7 @@
 @interface ALContactMessageCell : ALMediaBaseCell
 
 @property (nonatomic, strong) UIImageView * contactProfileImage;
+@property (nonatomic,retain) UIButton * mUserProfileImageViewButton;
 @property (nonatomic, strong) UILabel * userContact;
 @property (nonatomic, strong) UILabel * contactPerson;
 @property (nonatomic, strong) UILabel * emailId;
