@@ -91,12 +91,7 @@
     [self.mNameLabel setHidden:YES];
     [self.mMessageStatusImageView setHidden:YES];
     [self.replyParentView setHidden:YES];
-    
-    UITapGestureRecognizer *tapForOpenChat = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(processOpenChat)];
-    tapForOpenChat.numberOfTapsRequired = 1;
-    [self.mUserProfileImageView setUserInteractionEnabled:YES];
-    [self.mUserProfileImageView addGestureRecognizer:tapForOpenChat];
-    
+        
     CELL_WIDTH = viewSize.width - 120;
     CELL_HEIGHT = viewSize.width - 220;
     

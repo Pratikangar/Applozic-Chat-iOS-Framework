@@ -93,14 +93,6 @@
         self.contactProfileImage = [[UIImageView alloc] init];
         [self.contactProfileImage setBackgroundColor:[UIColor whiteColor]];
         [self.contentView addSubview:self.contactProfileImage];
-        
-        self.mUserProfileImageViewButton = [[UIButton alloc] initWithFrame:self.contactProfileImage.frame];
-        [self.mUserProfileImageViewButton addTarget:self action:@selector(TappedOnUserImageView:) forControlEvents:UIControlEventTouchUpInside];
-        self.mUserProfileImageViewButton.layer.cornerRadius=self.mUserProfileImageViewButton.frame.size.width/2;
-        self.mUserProfileImageViewButton.clipsToBounds = YES;
-        [self.contentView addSubview:self.mUserProfileImageViewButton];
-        [self.contentView bringSubviewToFront:self.mUserProfileImageViewButton];
-
 
         self.userContact = [[UILabel alloc] init];
         [self.userContact setBackgroundColor:[UIColor clearColor]];
@@ -143,21 +135,6 @@
     }
     return self;
 }
-
-- (void)TappedOnUserImageView:(UIButton *)sender {
-    
-    ALMessage *message = self.mMessage;
-    
-    NSLog(@"%@",message.to);
-    
-    NSLog(@"Tap on User");
-    
-    NSMutableDictionary *tmp = [[NSMutableDictionary alloc] init];
-    [tmp setValue:message.to forKey:@"user_id"];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"openUserProfile" object:nil userInfo:tmp];
-}
-
 
 -(instancetype)populateCell:(ALMessage *) alMessage viewSize:(CGSize)viewSize
 {

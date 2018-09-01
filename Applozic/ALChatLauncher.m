@@ -93,6 +93,14 @@
         chatView.displayName = displayName;
         chatView.chatViewDelegate = self;
         
+        //        UINavigationController *navController = (UINavigationController *)[[[UIApplication sharedApplication] keyWindow] rootViewController];
+        //        [navController pushViewController:chatView animated:YES];
+        
+        
+        //        UIViewController *vc = [[[UIApplication sharedApplication] keyWindow] rootViewController]; // self.view.window.rootViewController;
+        //        [vc presentViewController:chatView animated: YES completion:nil];
+
+        
         UINavigationController *conversationViewNavController = [self createNavigationControllerForVC:chatView];;
         conversationViewNavController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve ;
         [viewController presentViewController:conversationViewNavController animated:YES completion:nil];
