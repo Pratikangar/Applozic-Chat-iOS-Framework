@@ -161,7 +161,7 @@
     NSLog(@"Tap on User");
     
     NSMutableDictionary *tmp = [[NSMutableDictionary alloc] init];
-    [tmp setValue:message.to forKey:@"user_id"];
+    [tmp setValue:message.to forKey:@"mainchatlist_user_id"];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"openUserProfile" object:nil userInfo:tmp];
 }
