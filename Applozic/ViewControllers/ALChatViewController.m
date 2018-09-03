@@ -438,7 +438,7 @@
 {
     [super viewWillDisappear:animated];
 
-    [self.tabBarController.tabBar setHidden:YES];
+//    [self.tabBarController.tabBar setHidden:YES];
     [self resetMessageReplyView];
 
     if([ALApplozicSettings isTemplateMessageEnabled]) {
