@@ -834,7 +834,7 @@
         imageView.clipsToBounds = YES;
         imageView.layer.cornerRadius = imageView.frame.size.width/2;
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 70)];
-        view.backgroundColor = [ALApplozicSettings getColorForNavigation];
+        view.backgroundColor = [UIColor whiteColor];//[ALApplozicSettings getColorForNavigation];
         
         [imageView setUserInteractionEnabled:YES];
         [view addSubview:imageView];
