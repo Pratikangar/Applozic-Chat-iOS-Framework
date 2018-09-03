@@ -1739,7 +1739,7 @@ Upload Image Button.centerX = scd_profile_BG.centerX + 50</string>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IoT-HK-LWd">
-                                        <rect key="frame" x="0.0" y="4" width="46" height="52"/>
+                                        <rect key="frame" x="0.0" y="4" width="46" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="46" id="oOD-ac-EA7"/>
                                         </constraints>
@@ -1758,7 +1758,7 @@ Upload Image Button.centerX = scd_profile_BG.centerX + 50</string>
                                     <constraint firstItem="IoT-HK-LWd" firstAttribute="leading" secondItem="Npf-hG-Fxp" secondAttribute="leading" id="FDq-LG-EPN"/>
                                     <constraint firstAttribute="trailing" secondItem="oVG-6b-cXM" secondAttribute="trailing" constant="52" identifier="beakTrailing" id="Gme-zY-KoW"/>
                                     <constraint firstItem="4Au-pr-u6p" firstAttribute="leading" secondItem="IoT-HK-LWd" secondAttribute="trailing" id="OTK-I0-0Qz"/>
-                                    <constraint firstItem="IoT-HK-LWd" firstAttribute="bottom" secondItem="4Au-pr-u6p" secondAttribute="bottom" constant="8" id="Uvs-xg-wDE"/>
+                                    <constraint firstItem="IoT-HK-LWd" firstAttribute="bottom" secondItem="4Au-pr-u6p" secondAttribute="bottom" constant="4" id="Uvs-xg-wDE"/>
                                     <constraint firstItem="oVG-6b-cXM" firstAttribute="leading" secondItem="4Au-pr-u6p" secondAttribute="trailing" constant="-27" identifier="BeakLeading" id="b3o-YC-mEx"/>
                                     <constraint firstItem="4Au-pr-u6p" firstAttribute="bottom" secondItem="6XL-ms-PBf" secondAttribute="bottom" constant="-8" identifier="sendMessageTextViewBottom" id="cyR-uC-0VF"/>
                                     <constraint firstItem="4Au-pr-u6p" firstAttribute="top" relation="lessThanOrEqual" secondItem="Npf-hG-Fxp" secondAttribute="top" constant="8" id="dft-Vb-CWP"/>
