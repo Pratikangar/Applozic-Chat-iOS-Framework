@@ -1710,10 +1710,10 @@ Upload Image Button.centerX = scd_profile_BG.centerX + 50</string>
                                 <rect key="frame" x="0.0" y="546" width="600" height="56"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6XL-ms-PBf">
-                                        <rect key="frame" x="552" y="8" width="40" height="40"/>
+                                        <rect key="frame" x="552" y="4" width="48" height="52"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" identifier="sendButtonHeight" id="3Xa-rx-R9F"/>
-                                            <constraint firstAttribute="width" constant="40" identifier="sendButtonWidth" id="4Tu-uT-hOx"/>
+                                            <constraint firstAttribute="height" constant="52" identifier="sendButtonHeight" id="3Xa-rx-R9F"/>
+                                            <constraint firstAttribute="width" constant="48" identifier="sendButtonWidth" id="4Tu-uT-hOx"/>
                                         </constraints>
                                         <state key="normal" image="SendButton20"/>
                                         <connections>
@@ -1739,11 +1739,11 @@ Upload Image Button.centerX = scd_profile_BG.centerX + 50</string>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IoT-HK-LWd">
-                                        <rect key="frame" x="6" y="8" width="40" height="40"/>
+                                        <rect key="frame" x="0.0" y="4" width="46" height="52"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="oOD-ac-EA7"/>
+                                            <constraint firstAttribute="width" constant="46" id="oOD-ac-EA7"/>
                                         </constraints>
-                                        <state key="normal" image="attachments"/>
+                                        <state key="normal" image="icon_1"/>
                                         <connections>
                                             <action selector="attachmentActionMethod:" destination="rWz-Vg-7Ha" eventType="touchDown" id="4Ag-VV-0c2"/>
                                         </connections>
@@ -1752,18 +1752,18 @@ Upload Image Button.centerX = scd_profile_BG.centerX + 50</string>
                                 <color key="backgroundColor" red="0.4941176471" green="0.4941176471" blue="0.4941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" identifier="OuterUIViewHeight" id="0E1-3f-wRQ"/>
-                                    <constraint firstItem="IoT-HK-LWd" firstAttribute="top" secondItem="4Au-pr-u6p" secondAttribute="top" id="0U7-ZZ-LRT"/>
-                                    <constraint firstItem="6XL-ms-PBf" firstAttribute="trailing" secondItem="Npf-hG-Fxp" secondAttribute="trailingMargin" identifier="SendButtonTrailing" id="8rK-OD-RNv"/>
+                                    <constraint firstItem="IoT-HK-LWd" firstAttribute="top" secondItem="4Au-pr-u6p" secondAttribute="top" constant="-4" id="0U7-ZZ-LRT"/>
+                                    <constraint firstItem="6XL-ms-PBf" firstAttribute="trailing" secondItem="Npf-hG-Fxp" secondAttribute="trailingMargin" constant="8" identifier="SendButtonTrailing" id="8rK-OD-RNv"/>
                                     <constraint firstItem="oVG-6b-cXM" firstAttribute="top" secondItem="4Au-pr-u6p" secondAttribute="top" identifier="BeakTop" id="Ed8-jm-hLn"/>
-                                    <constraint firstItem="IoT-HK-LWd" firstAttribute="leading" secondItem="Npf-hG-Fxp" secondAttribute="leading" constant="6" id="FDq-LG-EPN"/>
+                                    <constraint firstItem="IoT-HK-LWd" firstAttribute="leading" secondItem="Npf-hG-Fxp" secondAttribute="leading" id="FDq-LG-EPN"/>
                                     <constraint firstAttribute="trailing" secondItem="oVG-6b-cXM" secondAttribute="trailing" constant="52" identifier="beakTrailing" id="Gme-zY-KoW"/>
                                     <constraint firstItem="4Au-pr-u6p" firstAttribute="leading" secondItem="IoT-HK-LWd" secondAttribute="trailing" id="OTK-I0-0Qz"/>
-                                    <constraint firstItem="IoT-HK-LWd" firstAttribute="bottom" secondItem="4Au-pr-u6p" secondAttribute="bottom" id="Uvs-xg-wDE"/>
+                                    <constraint firstItem="IoT-HK-LWd" firstAttribute="bottom" secondItem="4Au-pr-u6p" secondAttribute="bottom" constant="8" id="Uvs-xg-wDE"/>
                                     <constraint firstItem="oVG-6b-cXM" firstAttribute="leading" secondItem="4Au-pr-u6p" secondAttribute="trailing" constant="-27" identifier="BeakLeading" id="b3o-YC-mEx"/>
-                                    <constraint firstItem="4Au-pr-u6p" firstAttribute="bottom" secondItem="6XL-ms-PBf" secondAttribute="bottom" identifier="sendMessageTextViewBottom" id="cyR-uC-0VF"/>
+                                    <constraint firstItem="4Au-pr-u6p" firstAttribute="bottom" secondItem="6XL-ms-PBf" secondAttribute="bottom" constant="-8" identifier="sendMessageTextViewBottom" id="cyR-uC-0VF"/>
                                     <constraint firstItem="4Au-pr-u6p" firstAttribute="top" relation="lessThanOrEqual" secondItem="Npf-hG-Fxp" secondAttribute="top" constant="8" id="dft-Vb-CWP"/>
                                     <constraint firstItem="6XL-ms-PBf" firstAttribute="leading" secondItem="4Au-pr-u6p" secondAttribute="trailing" constant="17" identifier="sednButtomLEading" id="e9x-Mi-ywy"/>
-                                    <constraint firstAttribute="bottom" secondItem="6XL-ms-PBf" secondAttribute="bottom" constant="8" identifier="SendButtonToBottom" id="mwc-na-VjY"/>
+                                    <constraint firstAttribute="bottom" secondItem="6XL-ms-PBf" secondAttribute="bottom" identifier="SendButtonToBottom" id="mwc-na-VjY"/>
                                     <constraint firstItem="6XL-ms-PBf" firstAttribute="leading" secondItem="JFb-Gb-Lfr" secondAttribute="trailing" constant="8" identifier="sednButtonLeading" id="n1h-KM-mYO"/>
                                 </constraints>
                                 <variation key="default">
@@ -1928,10 +1928,10 @@ Upload Image Button.centerX = scd_profile_BG.centerX + 50</string>
         <image name="applozic_edit" width="18" height="18"/>
         <image name="applozic_group_icon" width="100" height="100"/>
         <image name="applozic_uploadCamera" width="20" height="16"/>
-        <image name="attachments" width="28" height="13"/>
         <image name="audio_mic" width="462" height="726"/>
         <image name="ic_action_camera" width="64" height="64"/>
         <image name="ic_phone_gray" width="30" height="32"/>
+        <image name="icon_1" width="22" height="26"/>
         <image name="online_show" width="200" height="200"/>
     </resources>
 </document>

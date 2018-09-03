@@ -319,9 +319,9 @@ static CGFloat const sendTextViewCornerRadius = 15.0f;
 
 -(void)sendButtonUI
 {
-    [self.sendButton setBackgroundColor:[ALApplozicSettings getColorForSendButton]];
-   self.sendButton.layer.cornerRadius = sendTextViewCornerRadius + 5;
-    self.sendButton.layer.masksToBounds = YES;
+    [self.sendButton setBackgroundColor:[UIColor colorWithRed:254.0/255 green:151.0/255 blue:0.0/255 alpha:1]];
+//   self.sendButton.layer.cornerRadius = sendTextViewCornerRadius + 5;
+//    self.sendButton.layer.masksToBounds = YES;
     
     [self.typingMessageView sendSubviewToBack:self.typeMsgBG];
     UIImage * image = [[ALUtilityClass getImageFromFramworkBundle:@"TYMSGBG.png"]
