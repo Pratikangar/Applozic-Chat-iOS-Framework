@@ -520,6 +520,7 @@
     if(isreloadRequire)
     {
         [self.mTableView reloadData];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateUnreadCount" object:nil];
     }
 }
 

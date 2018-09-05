@@ -605,7 +605,7 @@
             [self.alSyncCallService syncCall:alMessage];
             [self.mqttConversationDelegate syncCall:alMessage andMessageList:nil];
         }
-
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateUnreadCount" object:nil];
     }];
 }
 

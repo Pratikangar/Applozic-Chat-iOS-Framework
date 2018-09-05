@@ -440,6 +440,8 @@
 
 //    [self.tabBarController.tabBar setHidden:YES];
     [self resetMessageReplyView];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateUnreadCount" object:nil];
 
     if([ALApplozicSettings isTemplateMessageEnabled]) {
         [templateMessageView setHidden:YES];
